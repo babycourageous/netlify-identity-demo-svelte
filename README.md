@@ -9,7 +9,7 @@
 - [Netlify Identiy Widget](https://github.com/netlify/netlify-identity-widget/)
 - [Netlify](https://www.netlify.com) (hosting)
 
-This project was bootstrapped with the starter Svelte template by running `npx degit sveltejs/template <PROJECT_NAME>` and uses Netlify Identity for authentication.
+This project was bootstrapped with the starter Svelte template by running `npx degit sveltejs/template <PROJECT_NAME>` and uses Netlify Identity for authentication. It was influenced by the the [React example](https://github.com/netlify/netlify-identity-widget/tree/master/example/react) by [@sw-yx](https://github.com/sw-yx) and the [Vue example](https://github.com/whizjs/netlify-identity-demo-vue) by [@medmin](https://github.com/medmin)
 
 Instead of localStorage this example uses the core Netlify Identity API to determine if a user is already signed in and then stores that in a Svelte store.
 
