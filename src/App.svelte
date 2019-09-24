@@ -25,6 +25,9 @@
     align-items: center;
     justify-content: center;
   }
+  h1 {
+    font-size: 1.2rem;
+  }
   img {
     display: block;
     width: 200px;
@@ -44,8 +47,8 @@
   }
   li {
   }
-  h1 {
-    font-size: 1.2rem;
+  .center {
+    text-align: center;
   }
 </style>
 
@@ -53,23 +56,6 @@
   <h1>Netlify Identity Demo with Svelte</h1>
 
   <img alt="Svelte logo" src="logo.svg" />
-
-  {#if isLoggedIn}
-    <div>
-      <p>Hello {username}</p>
-      <p>
-        <button on:click={() => console.log('logout')}>Log Out</button>
-      </p>
-    </div>
-  {:else}
-    <div>
-      <p>You are not logged in.</p>
-      <p>
-        <button on:click={() => console.log('login')}>Log In</button>
-        <button on:click={() => console.log('signup')}>Sign Up</button>
-      </p>
-    </div>
-  {/if}
 
   <Router>
     <ul>
@@ -83,6 +69,26 @@
         <Link to="/protected">Protected</Link>
       </li>
     </ul>
+  </Router>
+
+  {#if isLoggedIn}
+    <div class="center">
+      <p>Hello {username}</p>
+      <div>
+        <button on:click={() => console.log('logout')}>Log Out</button>
+      </div>
+    </div>
+  {:else}
+    <div class="center">
+      <p>You are not logged in.</p>
+      <div>
+        <button on:click={() => console.log('login')}>Log In</button>
+        <button on:click={() => console.log('signup')}>Sign Up</button>
+      </div>
+    </div>
+  {/if}
+
+  <Router>
     <Route path="/public" component={Public} />
     <Route path="/protected" component={Protected} />
     <Route path="/" component={Home} />
