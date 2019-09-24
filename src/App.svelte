@@ -41,9 +41,9 @@
         netlifyIdentity.close()
       })
     } else if (action == 'logout') {
+      navigate('/')
       user.logout()
       netlifyIdentity.logout()
-      navigate('/')
     }
   }
 </script>
