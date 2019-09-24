@@ -1,12 +1,51 @@
 <script>
   import { Router, Route, Link, navigate } from 'svelte-routing'
+  import netlifyIdentity from 'netlify-identity-widget'
+
   import Home from './routes/Home.svelte'
   import Public from './routes/Public.svelte'
   import Protected from './routes/Protected.svelte'
   import NotFound from './routes/NotFound.svelte'
+  import { user } from './store.js'
 
-  let isLoggedIn
-  let username
+  netlifyIdentity.on('init', u => {
+    if (u) {
+      user.login({
+        username: u.user_metadata.full_name,
+        email: u.email,
+        access_token: u.token.access_token,
+        expires_at: u.token.expires_at,
+        refresh_token: u.token.refresh_token,
+        token_type: u.token.token_type,
+      })
+    }
+  })
+  netlifyIdentity.init()
+
+  $: isLoggedIn = !!$user
+  $: username = $user !== null ? $user.username : ' there!'
+
+  function handleUserAction(action) {
+    if (action == 'login' || action == 'signup') {
+      netlifyIdentity.open(action)
+      netlifyIdentity.on('login', u => {
+        const currentUser = {
+          username: u.user_metadata.full_name,
+          email: u.email,
+          access_token: u.token.access_token,
+          expires_at: u.token.expires_at,
+          refresh_token: u.token.refresh_token,
+          token_type: u.token.token_type,
+        }
+        user.login(currentUser)
+        netlifyIdentity.close()
+      })
+    } else if (action == 'logout') {
+      user.logout()
+      netlifyIdentity.logout()
+      navigate('/')
+    }
+  }
 </script>
 
 <style>
@@ -50,6 +89,12 @@
   .center {
     text-align: center;
   }
+  .gh-fork img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+  }
 </style>
 
 <main>
@@ -75,15 +120,15 @@
     <div class="center">
       <p>Hello {username}</p>
       <div>
-        <button on:click={() => console.log('logout')}>Log Out</button>
+        <button on:click={() => handleUserAction('logout')}>Log Out</button>
       </div>
     </div>
   {:else}
     <div class="center">
       <p>You are not logged in.</p>
       <div>
-        <button on:click={() => console.log('login')}>Log In</button>
-        <button on:click={() => console.log('signup')}>Sign Up</button>
+        <button on:click={() => handleUserAction('login')}>Log In</button>
+        <button on:click={() => handleUserAction('signup')}>Sign Up</button>
       </div>
     </div>
   {/if}
@@ -93,9 +138,8 @@
     <Route path="/protected" component={Protected} />
     <Route path="/" component={Home} />
   </Router>
-  <a href="https://github.com/whizjs/netlify-identity-demo-vue">
+  <a class="gh-fork" href="https://github.com/whizjs/netlify-identity-demo-vue">
     <img
-      style="position: absolute; top: 0; right: 0; border: 0;"
       src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
       alt="Fork me on GitHub" />
   </a>
