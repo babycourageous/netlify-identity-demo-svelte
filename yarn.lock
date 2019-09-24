@@ -2338,6 +2338,11 @@ svelte@^3.0.0:
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.12.1.tgz#ddfacd43272ac3255907c682b74ee7d3d8b06b0c"
   integrity sha512-t29WJNjHIqfrdMcVXqIyRfgLEaNz7MihKXTpb8qHlbzvf0WyOOIhIlwIGvl6ahJ9+9CLJwz0sjhFNAmPgo8BHg==
 
+sweetalert2@^8.17.6:
+  version "8.17.6"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.17.6.tgz#80ae892cced06cfb03e6152bfa78e238c24db9be"
+  integrity sha512-5V/zlNr/WXOW+Hmu2Sn0tCzd2+FvjVZv99i0gNYN7dk31VSPYM9mNuF5QUz5OVq49yYMpOV+F2Qslup8nnm4MQ==
+
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/table/-/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
