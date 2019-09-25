@@ -6,20 +6,8 @@
   import Public from './routes/Public.svelte'
   import Protected from './routes/Protected.svelte'
   import NotFound from './routes/NotFound.svelte'
-  import { user } from './store.js'
+  import { user, redirectURL } from './store.js'
 
-  netlifyIdentity.on('init', u => {
-    if (u) {
-      user.login({
-        username: u.user_metadata.full_name,
-        email: u.email,
-        access_token: u.token.access_token,
-        expires_at: u.token.expires_at,
-        refresh_token: u.token.refresh_token,
-        token_type: u.token.token_type,
-      })
-    }
-  })
   netlifyIdentity.init()
 
   $: isLoggedIn = !!$user
@@ -29,16 +17,12 @@
     if (action == 'login' || action == 'signup') {
       netlifyIdentity.open(action)
       netlifyIdentity.on('login', u => {
-        const currentUser = {
-          username: u.user_metadata.full_name,
-          email: u.email,
-          access_token: u.token.access_token,
-          expires_at: u.token.expires_at,
-          refresh_token: u.token.refresh_token,
-          token_type: u.token.token_type,
-        }
-        user.login(currentUser)
+        user.login(u)
         netlifyIdentity.close()
+        if ($redirectURL !== '') {
+          navigate($redirectURL)
+          redirectURL.clearRedirectURL()
+        }
       })
     } else if (action == 'logout') {
       navigate('/')
