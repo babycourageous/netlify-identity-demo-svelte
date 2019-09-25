@@ -1,9 +1,12 @@
 <script>
   import { navigate } from 'svelte-routing'
   import Swal from 'sweetalert2'
-  import { user } from '../store.js'
+  import { user, redirectURL } from '../store.js'
+
+  export let location
 
   function handlePrivateRoute() {
+    redirectURL.setRedirectURL(location.href)
     navigate('/', { replace: true })
 
     Swal.fire({
