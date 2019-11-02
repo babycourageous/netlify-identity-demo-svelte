@@ -122,7 +122,7 @@
     <Route path="/protected" component={Protected} />
     <Route path="/" component={Home} />
   </Router>
-  <a class="gh-fork" href="https://github.com/whizjs/netlify-identity-demo-vue">
+  <a class="gh-fork" href="https://github.com/babycourageous/netlify-identity-demo-svelte">
     <img
       src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
       alt="Fork me on GitHub" />
