@@ -14,7 +14,7 @@
   $: username = $user !== null ? $user.username : ' there!'
 
   function handleUserAction(action) {
-    if (action == 'login' || action == 'signup') {
+    if (action === 'login' || action === 'signup') {
       netlifyIdentity.open(action)
       netlifyIdentity.on('login', u => {
         user.login(u)
